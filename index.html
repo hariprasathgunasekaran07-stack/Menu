@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Weekly Food Menu</title>
+    <style>
+        /* --- Animated Gradient Background --- */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: #333;
+            padding-bottom: 40px;
+            background-image: url('food.img.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            color: white;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- Navigation Tabs for Days --- */
+        .tabs-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            max-width: 90%;
+            z-index: 10;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #e73c7e;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* --- Display Menu Card --- */
+        .menu-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: none; /* Controlled by JS */
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .menu-card.active {
+            display: block;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .day-title {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        /* --- Colorful Menu List --- */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.03);
+        }
+
+        .meal-type {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .food-name {
+            flex-grow: 1;
+        }
+
+        /* Distinct theme colors per meal component */
+        .breakfast { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #6b2d5c; }
+        .lunch { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); color: #155263; }
+        .dinner { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); color: #1e3d59; }
+    </style>
+</head>
+<body>
+
+    <h1>✨ Weekly Feast Menu ✨</h1>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchDay('monday')">Mon</button>
+        <button class="tab-btn" onclick="switchDay('tuesday')">Tue</button>
+        <button class="tab-btn" onclick="switchDay('wednesday')">Wed</button>
+        <button class="tab-btn" onclick="switchDay('thursday')">Thu</button>
+        <button class="tab-btn" onclick="switchDay('friday')">Fri</button>
+        <button class="tab-btn" onclick="switchDay('saturday')">Sat</button>
+        <button class="tab-btn" onclick="switchDay('sunday')">Sun</button>
+    </div>
+
+    <div id="monday" class="menu-card active">
+        <h2 class="day-title">Monday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Palaya Soru🍵</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Drumstick Sambar🍛</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Garlic Dosa🥞</span></li>
+        </ul>
+    </div>
+
+    <div id="tuesday" class="menu-card">
+        <h2 class="day-title">Tuesday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Kellogs Corn Flakes🥗</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Spicy Beef Street Tacos🌮</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Veg Fried Rice🍚</span></li>
+        </ul>
+    </div>
+
+    <div id="wednesday" class="menu-card">
+        <h2 class="day-title">Wednesday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Belgian Waffles with Fresh Berries🍝</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Turkey & Swiss Panini🥪</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Shrimp Scampi over Linguine🦐</span></li>
+        </ul>
+    </div>
+
+    <div id="thursday" class="menu-card">
+        <h2 class="day-title">Thursday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Greek Yogurt Honey Parfait🥣</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Quinoa & Roasted Veggie Buddha Bowl🥗</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">BBQ Pulled Pork Sandwiches🥪</span></li>
+        </ul>
+    </div>
+
+    <div id="friday" class="menu-card">
+        <h2 class="day-title">Friday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Classic Bacon, Egg & Cheese Bagel🧆</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Sushi Roll Platter🍣</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Homemade Margherita Pizza🍕</span></li>
+        </ul>
+    </div>
+
+    <div id="saturday" class="menu-card">
+        <h2 class="day-title">Saturday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Fluffy Buttermilk Pancakes🥞</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Double Cheeseburger & Fries🍔</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Parotta with chicken kurma 🍛</span></li>
+        </ul>
+    </div>
+
+    <div id="sunday" class="menu-card">
+        <h2 class="day-title">Sunday Menu</h2>
+        <ul class="menu-list">
+            <li class="menu-item breakfast"><span class="meal-type">Breakfast</span> <span class="food-name">Idli 🍲</span></li>
+            <li class="menu-item lunch"><span class="meal-type">Lunch</span> <span class="food-name">Chicken Biryani🍛</span></li>
+            <li class="menu-item dinner"><span class="meal-type">Dinner</span> <span class="food-name">Dosa 🍽and  chicken kulambu️ 🥣</span></li>
+        </ul>
+    </div>
+
+    <script>
+        function switchDay(dayId) {
+            // Remove active status from all structural cards
+            const cards = document.querySelectorAll('.menu-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Deactivate all styling highlights on current tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Target and active the selected day card
+            const selectedCard = document.getElementById(dayId);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
+            }
+
+            // Find clicked button and mark it active via execution event tracking
+            const clickedButton = event.currentTarget;
+            clickedButton.classList.add('active');
+        }
+    </script>
+</body>
+</html>
